@@ -3,7 +3,10 @@ package com.Day_26_HotelReservationSystem;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import junit.framework.Assert;
 
@@ -28,6 +31,26 @@ public class Hotel_Reservation_Test
 		List<Hotels> result = hr.getHotels();
 		Assert.assertEquals(result, hotels);
 	}
+	
+	@Test
+	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRates() 
+	{
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90);
+		hotel01.display();
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50);
+		hotel02.display();
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150);
+		hotel03.display();
+		hr.addHotels(hotel01);
+		hr.addHotels(hotel02);
+		hr.addHotels(hotel03);
+		Map<Hotels, Integer> result = hr.searchFor("10Sep2020", "11Sep2020");
+        result.forEach((k, v) -> System.out.println(k.getHotelName()+ " " + v));
+        Map<Hotels,Integer> expected = new HashMap<>();
+        expected.put(hotel01,220);
+        Assert.assertEquals(result,expected);
+	}
+	
 }
 
 

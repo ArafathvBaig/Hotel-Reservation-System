@@ -1,9 +1,15 @@
 package com.Day_26_HotelReservationSystem;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -31,6 +37,66 @@ public class Hotel_Reservation
         Optional<Hotels> sortedHotelList = list.stream().min(Comparator.comparing(Hotels::getRegularRates));
         return sortedHotelList.get();
     }
+	
+	public Map<Hotels, Integer> searchFor(String date1, String date2) 
+	{
+		int totalDays = totalNumberOfDays(date1, date2);
+		int weekDays = totalNumberOfWeekDays(date1, date2);
+		int weekendDays = totalDays - weekDays;
+		return getCheapestHotels(weekDays, weekendDays);
+	}
+
+	/**
+	 * get cheapest hotel
+	 */
+	public Map<Hotels, Integer> getCheapestHotels(int weekDays, int weekendDays) 
+	{
+		Map<Hotels, Integer> hotelCosts = new HashMap<>();
+		Map<Hotels, Integer> cheapestHotel = new HashMap<>();
+		if (list.size() == 0)
+			return null;
+		this.list.stream().forEach(n -> hotelCosts.put(n,
+				(n.getWeekDayRegularRate() * weekDays + n.getWeekEndRegularRate() * weekendDays)));
+		Integer cheap = hotelCosts.values().stream().min(Integer::compare).get();
+		hotelCosts.forEach((k, v) -> {
+			if (v == cheap)
+				cheapestHotel.put(k, v);
+		});
+
+		return cheapestHotel;
+	}
+
+	/**
+	 * count total number of days
+	 */
+	public int totalNumberOfDays(String date1, String date2) 
+	{
+		LocalDate startDate = toLocalDate(date1);
+		LocalDate endDate = toLocalDate(date2);
+		int totalDays = Period.between(startDate, endDate).getDays() + 1;
+		return totalDays;
+	}
+
+	/**
+	 * use to get total number of week days in booking dates
+	 */
+	public int totalNumberOfWeekDays(String date1, String date2) {
+		LocalDate startDate = toLocalDate(date1);
+		LocalDate endDate = toLocalDate(date2);
+		DayOfWeek startDay = startDate.getDayOfWeek();
+		DayOfWeek endDay = endDate.getDayOfWeek();
+		int days = (int) (ChronoUnit.DAYS.between(startDate, endDate) + 1);
+		int daysWithoutWeekends = days - 2 * ((days + startDay.getValue()) / 7);
+		int totalWeekDays = (int) daysWithoutWeekends + (startDay == DayOfWeek.SUNDAY ? 1 : 0)
+				+ (endDay == DayOfWeek.SUNDAY ? 1 : 0);
+		return totalWeekDays;
+	}
+
+	public LocalDate toLocalDate(String date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy");
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		return localDate;
+	}
 }
 
 
