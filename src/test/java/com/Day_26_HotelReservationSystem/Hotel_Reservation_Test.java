@@ -15,9 +15,12 @@ public class Hotel_Reservation_Test
 	@Test
 	public void addingDetailsOfHotelsAndTestingWeatherAddedOrNot() 
 	{
-		Hotels hotel01 = new Hotels("Lakewood", 100);
-		Hotels hotel02 = new Hotels("Bridgewood", 140);
-		Hotels hotel03 = new Hotels("Ridgewood", 210);
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90);
+		hotel01.display();
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50);
+		hotel02.display();
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150);
+		hotel03.display();
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
 		hr.addHotels(hotel03);
@@ -25,22 +28,6 @@ public class Hotel_Reservation_Test
 		List<Hotels> result = hr.getHotels();
 		Assert.assertEquals(result, hotels);
 	}
-	
-	@Test
-	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRates() 
-	{
-		Hotels hotel01 = new Hotels("Lakewood", 220);
-		Hotels hotel02 = new Hotels("Bridgewood", 260);
-		Hotels hotel03 = new Hotels("Ridgewood", 330);
-		hr.addHotels(hotel01);
-		hr.addHotels(hotel02);
-		hr.addHotels(hotel03);
-		LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 10);
-	    LocalDate endDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
-		Hotels hotel = hr.getCheapestHotel(startDate, endDate);
-		Assert.assertEquals("Lakewood", hotel.getHotelName());
-	}
-	
 }
 
 

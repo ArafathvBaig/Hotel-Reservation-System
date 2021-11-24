@@ -4,16 +4,20 @@ public class Hotels
 {
 	private String hotelName = " ";
 	private int regularRates = 0;
+	private int weekDayRegularRate = 0;
+	private int weekEndRegularRate = 0;
 
 	public Hotels()
 	{
 		
 	}
 	
-	public Hotels(String hotelName, int regularRates) 
+	public Hotels(String hotelName, int regularRates, int weekDayRegularRate, int weekEndRegularRate) 
 	{
 		this.hotelName = hotelName;
 		this.regularRates = regularRates;
+		this.weekDayRegularRate = weekDayRegularRate;
+		this.weekEndRegularRate = weekEndRegularRate;
 	}
 
 	/*
@@ -37,22 +41,43 @@ public class Hotels
 		this.regularRates = regularRates;
 	}
 	
+	public int getWeekDayRegularRate() {
+		return weekDayRegularRate;
+	}
+
+	public void setWeekDayRegularRate(int weekDayRegularRate) {
+		this.weekDayRegularRate = weekDayRegularRate;
+	}
+	
+	public int getWeekEndRegularRate() {
+		return weekDayRegularRate;
+	}
+
+	public void setWeekEndRegularRate(int weekEndRegularRate) {
+		this.weekEndRegularRate = weekEndRegularRate;
+	}
 
 	/*
 	 * This Display Method Displays Details Just Got Added To The Array List.
 	 */
 
-	public void display() {
+	public void display() 
+	{
 		System.out.println(" ");
 		System.out.println("Hotel Name :: " + hotelName);
 		System.out.println("Regular Rates :: " + regularRates);
+		System.out.println("Week Day Regular Rate :: " + weekDayRegularRate);
+		System.out.println("Week End Regular Rate :: " + weekEndRegularRate);
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "\nHotel Details:" + 
 		"\nHotel Name :: " + hotelName+
-		"\nRegular Rates :: " + regularRates;
+		"\nRegular Rates :: " + regularRates+
+		"\nWeek Day Regular Rate :: " + weekDayRegularRate+
+		"\nWeek End Regular Rate :: " + weekEndRegularRate;
 	}
 }
 
