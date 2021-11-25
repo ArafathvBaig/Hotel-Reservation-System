@@ -16,11 +16,11 @@ public class Hotel_Reservation_Test
 	@Test
 	public void addingDetailsOfHotelsAndTestingWeatherAddedOrNot() 
 	{
-		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 3);
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
-		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 4);
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 110, 50, 4);
 		hotel02.display();
-		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150, 5);
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150,100, 40, 5);
 		hotel03.display();
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
@@ -33,11 +33,11 @@ public class Hotel_Reservation_Test
 	@Test
 	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRates() 
 	{
-		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 3);
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
-		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 4);
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 110, 50, 4);
 		hotel02.display();
-		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150, 5);
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150,100, 40, 5);
 		hotel03.display();
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
@@ -52,11 +52,11 @@ public class Hotel_Reservation_Test
 	@Test
 	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRatesAndBestRating() 
 	{
-		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 3);
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
-		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 4);
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 110, 50, 4);
 		hotel02.display();
-		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150, 5);
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150,100, 40, 5);
 		hotel03.display();
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
@@ -71,11 +71,11 @@ public class Hotel_Reservation_Test
 	@Test
 	public void addingDetailsOfHotelsAndFindingHotelWithRegularRatesAndBestRating() 
 	{
-		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 3);
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
-		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 4);
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 110, 50, 4);
 		hotel02.display();
-		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150, 5);
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150,100, 40, 5);
 		hotel03.display();
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
