@@ -38,42 +38,13 @@ public class Hotel_Reservation
         return sortedHotelList.get();
     }
 	
-	public Map<Hotels, Integer> searchFor(String date1, String date2) 
+	public LocalDate toLocalDate(String date) 
 	{
-		int totalDays = totalNumberOfDays(date1, date2);
-		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
-		int weekEndDays = totalDays - totalWeekDays;
-		return getCheapestHotels(totalWeekDays, weekEndDays);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy");
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		return localDate;
 	}
 	
-	public Map<Hotels, Integer> searchFor1(String date1, String date2) 
-	{
-		int totalDays = totalNumberOfDays(date1, date2);
-		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
-		int weekEndDays = totalDays - totalWeekDays;
-		return getBestRatedHotels(totalWeekDays, weekEndDays);
-	}
-	
-	/**
-	 * get cheapest hotel
-	 */
-	public Map<Hotels, Integer> getCheapestHotels(int weekDays, int weekendDays) 
-	{
-		Map<Hotels, Integer> hotelCosts = new HashMap<>();
-		Map<Hotels, Integer> cheapestHotel = new HashMap<>();
-		if (list.size() == 0)
-			return null;
-		this.list.stream().forEach(n -> hotelCosts.put(n,
-				(n.getWeekDayRegularRate() * weekDays + n.getWeekEndRegularRate() * weekendDays)));
-		Integer cheap = hotelCosts.values().stream().min(Integer::compare).get();
-		hotelCosts.forEach((k, v) -> {
-			if (v == cheap)
-				cheapestHotel.put(k, v);
-		});
-
-		return cheapestHotel;
-	}
-
 	/**
 	 * count total number of days
 	 */
@@ -100,15 +71,36 @@ public class Hotel_Reservation
 				+ (endDay == DayOfWeek.SUNDAY ? 1 : 0);
 		return totalWeekDays;
 	}
-
-	public LocalDate toLocalDate(String date) 
+	
+	public Map<Hotels, Integer> searchFor(String date1, String date2) 
 	{
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMMyyyy");
-		LocalDate localDate = LocalDate.parse(date, formatter);
-		return localDate;
+		int totalDays = totalNumberOfDays(date1, date2);
+		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
+		int weekEndDays = totalDays - totalWeekDays;
+		return getCheapestHotelsForRegularCustomers(totalWeekDays, weekEndDays);
 	}
 	
-	public Map<Hotels, Integer> getCheapestAndBestRatedHotels(String date1, String date2) 
+	/**
+	 * get cheapest hotel
+	 */
+	public Map<Hotels, Integer> getCheapestHotelsForRegularCustomers(int weekDays, int weekendDays) 
+	{
+		Map<Hotels, Integer> hotelCosts = new HashMap<>();
+		Map<Hotels, Integer> cheapestHotel = new HashMap<>();
+		if (list.size() == 0)
+			return null;
+		this.list.stream().forEach(n -> hotelCosts.put(n,
+				(n.getWeekDayRegularRate() * weekDays + n.getWeekEndRegularRate() * weekendDays)));
+		Integer cheap = hotelCosts.values().stream().min(Integer::compare).get();
+		hotelCosts.forEach((k, v) -> {
+			if (v == cheap)
+				cheapestHotel.put(k, v);
+		});
+
+		return cheapestHotel;
+	}
+	
+	public Map<Hotels, Integer> getCheapAndBestRatingHotelsForRegularCustomers(String date1, String date2) 
 	{
 		Map<Hotels, Integer> bestHotels = new HashMap<Hotels, Integer>();
 		Map<Hotels, Integer> cheapestHotels = searchFor(date1, date2);
@@ -121,7 +113,15 @@ public class Hotel_Reservation
 		return bestHotels;
 	}
 	
-	public Map<Hotels, Integer> getBestRatedHotels(int date1, int date2)
+	public Map<Hotels, Integer> searchFor1(String date1, String date2) 
+	{
+		int totalDays = totalNumberOfDays(date1, date2);
+		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
+		int weekEndDays = totalDays - totalWeekDays;
+		return getBestRatedHotelsForRegularCustomers(totalWeekDays, weekEndDays);
+	}
+	
+	public Map<Hotels, Integer> getBestRatedHotelsForRegularCustomers(int date1, int date2)
 	{
 		Map<Hotels, Integer> hotel = new HashMap<>();
 		Map<Hotels, Integer> bestRatedHotels = new HashMap<>();
@@ -132,6 +132,44 @@ public class Hotel_Reservation
 				bestRatedHotels.put(k, v);
 		});
 		return bestRatedHotels;
+	}
+	
+	public Map<Hotels, Integer> searchFor2(String date1, String date2) 
+	{
+		int totalDays = totalNumberOfDays(date1, date2);
+		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
+		int weekEndDays = totalDays - totalWeekDays;
+		return getCheapestHotelsForRewardCustomers(totalWeekDays, weekEndDays);
+	}
+	
+	public Map<Hotels, Integer> getCheapestHotelsForRewardCustomers(int weekDays, int weekendDays) 
+	{
+		Map<Hotels, Integer> hotelCosts = new HashMap<>();
+		Map<Hotels, Integer> cheapestHotel = new HashMap<>();
+		if (list.size() == 0)
+			return null;
+		this.list.stream().forEach(n -> hotelCosts.put(n,
+				(n.getWeekDayRewardRate() * weekDays + n.getWeekEndRewardRate() * weekendDays)));
+		Integer cheap = hotelCosts.values().stream().min(Integer::compare).get();
+		hotelCosts.forEach((k, v) -> {
+			if (v == cheap)
+				cheapestHotel.put(k, v);
+		});
+
+		return cheapestHotel;
+	}
+	
+	public Map<Hotels, Integer> getCheapAndBestRatingHotelsForRewardCustomers(String date1, String date2) 
+	{
+		Map<Hotels, Integer> bestHotels = new HashMap<Hotels, Integer>();
+		Map<Hotels, Integer> cheapestHotels = searchFor2(date1, date2);
+		int highestRating = (cheapestHotels.keySet().stream().max(Comparator.comparingInt(Hotels::getRating)).get())
+				.getRating();
+		cheapestHotels.forEach((k, v) -> {
+			if (k.getRating() == highestRating)
+				bestHotels.put(k, k.getRating());
+		});
+		return bestHotels;
 	}
 }
 

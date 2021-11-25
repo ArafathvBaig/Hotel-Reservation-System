@@ -31,7 +31,7 @@ public class Hotel_Reservation_Test
 	}
 	
 	@Test
-	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRates() 
+	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularCustomerRates() 
 	{
 		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
@@ -50,7 +50,7 @@ public class Hotel_Reservation_Test
 	}
 	
 	@Test
-	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularRatesAndBestRating() 
+	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRegularCustomerRatesAndBestRating() 
 	{
 		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
@@ -61,7 +61,7 @@ public class Hotel_Reservation_Test
 		hr.addHotels(hotel01);
 		hr.addHotels(hotel02);
 		hr.addHotels(hotel03);
-		Map<Hotels, Integer> result = hr.getCheapestAndBestRatedHotels("11Sep2020", "12Sep2020");
+		Map<Hotels, Integer> result = hr.getCheapAndBestRatingHotelsForRegularCustomers("11Sep2020", "12Sep2020");
         result.forEach((k, v) -> System.out.println(k.getHotelName()+ " " + v));
         Map<Hotels,Integer> expected = new HashMap<>();
         expected.put(hotel02,4);
@@ -69,7 +69,7 @@ public class Hotel_Reservation_Test
 	}
 	
 	@Test
-	public void addingDetailsOfHotelsAndFindingHotelWithRegularRatesAndBestRating() 
+	public void addingDetailsOfHotelsAndFindingHotelWithRegularCustomerRatesAndBestRating() 
 	{
 		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
 		hotel01.display();
@@ -81,6 +81,25 @@ public class Hotel_Reservation_Test
 		hr.addHotels(hotel02);
 		hr.addHotels(hotel03);
 		Map<Hotels, Integer> result = hr.searchFor1("11Sep2020", "12Sep2020");
+        result.forEach((k, v) -> System.out.println(k.getHotelName()+ " " + v));
+        Map<Hotels,Integer> expected = new HashMap<>();
+        expected.put(hotel03,5);
+        Assert.assertEquals(result,expected);
+	}
+	
+	@Test
+	public void addingDetailsOfHotelsAndFindingCheapestHotelWithRewardCustomerRatesAndBestRating() 
+	{
+		Hotels hotel01 = new Hotels("Lakewood", 220, 110, 90, 80, 80, 3);
+		hotel01.display();
+		Hotels hotel02 = new Hotels("Bridgewood", 260, 150, 50, 110, 50, 4);
+		hotel02.display();
+		Hotels hotel03 = new Hotels("Ridgewood", 330, 220, 150,100, 40, 5);
+		hotel03.display();
+		hr.addHotels(hotel01);
+		hr.addHotels(hotel02);
+		hr.addHotels(hotel03);
+		Map<Hotels, Integer> result = hr.getCheapAndBestRatingHotelsForRewardCustomers("11Sep2020", "12Sep2020");
         result.forEach((k, v) -> System.out.println(k.getHotelName()+ " " + v));
         Map<Hotels,Integer> expected = new HashMap<>();
         expected.put(hotel03,5);
