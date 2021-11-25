@@ -45,7 +45,15 @@ public class Hotel_Reservation
 		int weekEndDays = totalDays - totalWeekDays;
 		return getCheapestHotels(totalWeekDays, weekEndDays);
 	}
-
+	
+	public Map<Hotels, Integer> searchFor1(String date1, String date2) 
+	{
+		int totalDays = totalNumberOfDays(date1, date2);
+		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
+		int weekEndDays = totalDays - totalWeekDays;
+		return getBestRatedHotels(totalWeekDays, weekEndDays);
+	}
+	
 	/**
 	 * get cheapest hotel
 	 */
@@ -111,6 +119,19 @@ public class Hotel_Reservation
 				bestHotels.put(k, k.getRating());
 		});
 		return bestHotels;
+	}
+	
+	public Map<Hotels, Integer> getBestRatedHotels(int date1, int date2)
+	{
+		Map<Hotels, Integer> hotel = new HashMap<>();
+		Map<Hotels, Integer> bestRatedHotels = new HashMap<>();
+		list.stream().forEach(n -> hotel.put(n, n.getRating()));
+		Integer rating = hotel.values().stream().max(Integer::compare).get();
+		hotel.forEach((k, v) -> {
+			if (v == rating)
+				bestRatedHotels.put(k, v);
+		});
+		return bestRatedHotels;
 	}
 }
 
