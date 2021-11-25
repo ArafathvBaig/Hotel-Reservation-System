@@ -41,9 +41,12 @@ public class Hotel_Reservation
 	public Map<Hotels, Integer> searchFor(String date1, String date2) 
 	{
 		int totalDays = totalNumberOfDays(date1, date2);
-		int weekDays = totalNumberOfWeekDays(date1, date2);
-		int weekendDays = totalDays - weekDays;
-		return getCheapestHotels(weekDays, weekendDays);
+		System.out.println("Total Days:: "+totalDays);
+		int totalWeekDays = totalNumberOfWeekDays(date1, date2);
+		System.out.println("Total Week Days:: "+totalWeekDays);
+		int weekEndDays = totalDays - totalWeekDays;
+		System.out.println("Total Week End Days:: "+weekEndDays);
+		return getCheapestHotels(totalWeekDays, weekEndDays);
 	}
 
 	/**
@@ -74,6 +77,7 @@ public class Hotel_Reservation
 		LocalDate startDate = toLocalDate(date1);
 		LocalDate endDate = toLocalDate(date2);
 		int totalDays = Period.between(startDate, endDate).getDays() + 1;
+		System.out.println("Total Days:: "+totalDays);
 		return totalDays;
 	}
 
@@ -86,9 +90,12 @@ public class Hotel_Reservation
 		DayOfWeek startDay = startDate.getDayOfWeek();
 		DayOfWeek endDay = endDate.getDayOfWeek();
 		int days = (int) (ChronoUnit.DAYS.between(startDate, endDate) + 1);
+		System.out.println("Days:: "+days);
 		int daysWithoutWeekends = days - 2 * ((days + startDay.getValue()) / 7);
+		System.out.println("Days With Out Week Ends:: "+daysWithoutWeekends);
 		int totalWeekDays = (int) daysWithoutWeekends + (startDay == DayOfWeek.SUNDAY ? 1 : 0)
 				+ (endDay == DayOfWeek.SUNDAY ? 1 : 0);
+		System.out.println("Total Week Days:: "+totalWeekDays);
 		return totalWeekDays;
 	}
 

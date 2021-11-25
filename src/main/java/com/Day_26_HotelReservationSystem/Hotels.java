@@ -6,18 +6,20 @@ public class Hotels
 	private int regularRates = 0;
 	private int weekDayRegularRate = 0;
 	private int weekEndRegularRate = 0;
-
+	private int rating = 0;
+	
 	public Hotels()
 	{
 		
 	}
 	
-	public Hotels(String hotelName, int regularRates, int weekDayRegularRate, int weekEndRegularRate) 
+	public Hotels(String hotelName, int regularRates, int weekDayRegularRate, int weekEndRegularRate, int rating) 
 	{
 		this.hotelName = hotelName;
 		this.regularRates = regularRates;
 		this.weekDayRegularRate = weekDayRegularRate;
 		this.weekEndRegularRate = weekEndRegularRate;
+		this.rating = rating;
 	}
 
 	/*
@@ -50,11 +52,19 @@ public class Hotels
 	}
 	
 	public int getWeekEndRegularRate() {
-		return weekDayRegularRate;
+		return weekEndRegularRate;
 	}
 
 	public void setWeekEndRegularRate(int weekEndRegularRate) {
 		this.weekEndRegularRate = weekEndRegularRate;
+	}
+	
+	public int getRating() {
+		return rating;
+	}
+	
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 
 	/*
@@ -68,6 +78,7 @@ public class Hotels
 		System.out.println("Regular Rates :: " + regularRates);
 		System.out.println("Week Day Regular Rate :: " + weekDayRegularRate);
 		System.out.println("Week End Regular Rate :: " + weekEndRegularRate);
+		System.out.println("Rating :: "+ rating);
 	}
 
 	@Override
@@ -77,7 +88,8 @@ public class Hotels
 		"\nHotel Name :: " + hotelName+
 		"\nRegular Rates :: " + regularRates+
 		"\nWeek Day Regular Rate :: " + weekDayRegularRate+
-		"\nWeek End Regular Rate :: " + weekEndRegularRate;
+		"\nWeek End Regular Rate :: " + weekEndRegularRate+
+		"\nRating :: " + rating;
 	}
 }
 
